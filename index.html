@@ -37,9 +37,10 @@ body {
   -webkit-transform-style:preserve-3d; transform-style:preserve-3d;
   -webkit-transition:-webkit-transform 1s cubic-bezier(.45,.05,.2,1);
   transition:transform 1s cubic-bezier(.45,.05,.2,1);
+  will-change:transform;
 }
 .card.flipped { -webkit-transform:rotateY(180deg); transform:rotateY(180deg); }
-.card-face { position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden; border-radius:28px; }
+.card-face { position:absolute; top:0; left:0; right:0; bottom:0; -webkit-backface-visibility:hidden; backface-visibility:hidden; border-radius:28px; }
 
 /* FRONT */
 .card-front {
@@ -50,7 +51,7 @@ body {
   padding:28px 24px 22px; overflow:hidden;
 }
 .card-front::after {
-  content:''; position:absolute; inset:-3px; border-radius:30px;
+  content:''; position:absolute; top:-3px; left:-3px; right:-3px; bottom:-3px; border-radius:30px;
   background:conic-gradient(from 0deg,#95d5b2,#52b788,#ffd166,#ffb3c6,#95d5b2);
   animation:spin-border 8s linear infinite; z-index:-1; opacity:.6;
 }
@@ -115,7 +116,7 @@ body {
   display:flex; flex-direction:column; padding:30px 28px 18px; overflow:hidden;
 }
 .card-back::before {
-  content:''; position:absolute; inset:50px 28px 0;
+  content:''; position:absolute; top:50px; left:28px; right:28px; bottom:0;
   background:repeating-linear-gradient(to bottom,transparent 0,transparent 30px,rgba(82,183,136,.12) 30px,rgba(82,183,136,.12) 31px);
   pointer-events:none;
 }
@@ -155,13 +156,15 @@ body {
 
 /* ── CAKE SCREEN ── */
 #cake-screen {
-  position:fixed; inset:0;
+  position:fixed; top:0; left:0; right:0; bottom:0;
   background:radial-gradient(ellipse at 25% 15%,#e8f5e9 0%,#b9dfc8 45%,#81c9a1 100%);
   display:flex; align-items:center; justify-content:center;
-  z-index:100; transform:translateX(110%);
+  z-index:100;
+  -webkit-transform:translateX(110%); transform:translateX(110%);
+  -webkit-transition:-webkit-transform .75s cubic-bezier(.4,0,.2,1);
   transition:transform .75s cubic-bezier(.4,0,.2,1);
 }
-#cake-screen.visible { transform:translateX(0); }
+#cake-screen.visible { -webkit-transform:translateX(0); transform:translateX(0); }
 
 .cake-card {
   width:min(430px,93vw); max-height:95vh; overflow:hidden;
@@ -489,8 +492,9 @@ body {
 // ── Card flip ──
 const card       = document.getElementById('card');
 const cakeScreen = document.getElementById('cake-screen');
-document.getElementById('openBtn').addEventListener('click', e => { e.stopPropagation(); card.classList.add('flipped'); launchConfetti(40); });
-document.getElementById('backBtn').addEventListener('click', e => { e.stopPropagation(); card.classList.remove('flipped'); });
+const badge = document.querySelector('.age-badge');
+document.getElementById('openBtn').addEventListener('click', e => { e.stopPropagation(); card.classList.add('flipped'); badge.style.visibility='hidden'; launchConfetti(40); });
+document.getElementById('backBtn').addEventListener('click', e => { e.stopPropagation(); card.classList.remove('flipped'); badge.style.visibility='visible'; });
 document.getElementById('cakeEntryBtn').addEventListener('click', e => { e.stopPropagation(); cakeScreen.classList.add('visible'); });
 document.getElementById('cakeBackBtn').addEventListener('click', () => cakeScreen.classList.remove('visible'));
 
