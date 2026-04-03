@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🥬 Happy Birthday 甘源源！</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --g1:#1b5e20; --g2:#2e7d32; --g3:#388e3c;
+  --g4:#52b788; --g5:#95d5b2; --g6:#c8ebd8;
+  --cream:#fef9ef; --cream2:#fdf3d8;
+  --pink:#ffb3c6; --yellow:#ffd166;
+}
+
+body {
+  min-height:100vh;
+  background:radial-gradient(ellipse at 25% 15%,#e8f5e9 0%,#b9dfc8 45%,#81c9a1 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-family:'Ma Shan Zheng',cursive; overflow:hidden; position:relative;
+}
+
+.particle { position:fixed; pointer-events:none; z-index:0; animation:rise linear infinite; opacity:0; }
+@keyframes rise {
+  0%{transform:translateY(105vh) rotate(0deg);opacity:0} 8%{opacity:.75} 92%{opacity:.75}
+  100%{transform:translateY(-8vh) rotate(360deg);opacity:0}
+}
+
+/* ── CARD ── */
+.card-scene { width:min(430px,93vw); perspective:1100px; z-index:1; }
+.card {
+  width:100%; height:clamp(580px,85vh,660px);
+  position:relative; transform-style:preserve-3d;
+  transition:transform 1s cubic-bezier(.45,.05,.2,1);
+}
+.card.flipped { transform:rotateY(180deg); }
+.card-face { position:absolute; inset:0; backface-visibility:hidden; border-radius:28px; }
+
+/* FRONT */
+.card-front {
+  background:linear-gradient(155deg,#f7fdf8 0%,#eef9f2 60%,#e0f4ea 100%);
+  border:2.5px solid var(--g5);
+  box-shadow:0 24px 64px rgba(27,94,32,.22),0 4px 18px rgba(27,94,32,.12),inset 0 1px 0 rgba(255,255,255,.8);
+  display:flex; flex-direction:column; align-items:center;
+  padding:28px 24px 22px; overflow:hidden;
+}
+.card-front::after {
+  content:''; position:absolute; inset:-3px; border-radius:30px;
+  background:conic-gradient(from 0deg,#95d5b2,#52b788,#ffd166,#ffb3c6,#95d5b2);
+  animation:spin-border 8s linear infinite; z-index:-1; opacity:.6;
+}
+@keyframes spin-border { to{transform:rotate(360deg)} }
+
+.front-title {
+  font-family:'Pacifico',cursive; font-size:clamp(24px,6.5vw,34px);
+  color:var(--g1); text-align:center; text-shadow:2px 3px 0 rgba(149,213,178,.55);
+  margin-bottom:4px; letter-spacing:1px;
+}
+.front-sub { font-size:19px; color:var(--g3); text-align:center; margin-bottom:10px; }
+
+.stars { position:absolute; inset:0; pointer-events:none; overflow:hidden; border-radius:26px; }
+.star { position:absolute; color:var(--g4); animation:twinkle ease-in-out infinite; }
+@keyframes twinkle { 0%,100%{opacity:.15;transform:scale(.7)} 50%{opacity:1;transform:scale(1.3)} }
+
+.veg-stage { width:100%; flex:1; position:relative; min-height:200px; max-height:260px; }
+.ground { position:absolute; bottom:0; left:-6px; right:-6px; height:22px;
+  background:linear-gradient(to bottom,#7ec8a0,#52b788); border-radius:50% 50% 0 0/70% 70% 0 0; }
+.ground-dots { position:absolute; bottom:6px; left:50%; transform:translateX(-50%); display:flex; gap:18px; }
+.ground-dots span { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.4); display:block; }
+
+.veg { position:absolute; bottom:14px; cursor:pointer; filter:drop-shadow(0 5px 8px rgba(0,0,0,.15)); transition:filter .2s; }
+.veg:hover { filter:drop-shadow(0 8px 16px rgba(0,0,0,.25)); }
+.veg-bc  { left:2%;   width:clamp(74px,19vw,92px); animation:sway   3s   ease-in-out infinite; transform-origin:bottom center; }
+.veg-shq { left:26%;  width:clamp(65px,17vw,82px); animation:boing  2.1s ease-in-out infinite; }
+.veg-boc { right:26%; width:clamp(65px,17vw,80px); animation:wobble 2.7s ease-in-out infinite; }
+.veg-slc { right:2%;  width:clamp(70px,18vw,88px); animation:jiggle 2.3s ease-in-out infinite; transform-origin:bottom center; }
+@keyframes sway   { 0%,100%{transform:rotate(-6deg)}  50%{transform:rotate(6deg)} }
+@keyframes boing  { 0%,100%{transform:translateY(0)}   50%{transform:translateY(-16px)} }
+@keyframes wobble { 0%,100%{transform:rotate(0)scale(1)} 30%{transform:rotate(-5deg)scale(1.04)} 70%{transform:rotate(5deg)scale(1.04)} }
+@keyframes jiggle { 0%,100%{transform:rotate(-4deg)}  40%{transform:rotate(4deg)scale(1.05)} 80%{transform:rotate(-2deg)} }
+
+.open-btn {
+  margin-top:10px; background:linear-gradient(135deg,#52b788,#2d8a5e); color:#fff;
+  border:none; padding:13px 40px; border-radius:999px;
+  font-family:'Ma Shan Zheng',cursive; font-size:19px; cursor:pointer;
+  box-shadow:0 5px 20px rgba(45,138,94,.38); animation:pulse-glow 2.6s ease-in-out infinite;
+  transition:transform .18s; position:relative; z-index:2;
+}
+.open-btn:hover { transform:scale(1.07); }
+@keyframes pulse-glow {
+  0%,100%{box-shadow:0 5px 20px rgba(45,138,94,.38)}
+  50%{box-shadow:0 5px 36px rgba(45,138,94,.62),0 0 0 7px rgba(82,183,136,.15)}
+}
+
+.age-badge {
+  position:absolute; top:16px; right:18px;
+  background:linear-gradient(135deg,#ffd166,#ffb347); color:var(--g1);
+  font-family:'Pacifico',cursive; font-size:13px; padding:5px 12px; border-radius:999px;
+  box-shadow:0 3px 10px rgba(255,209,102,.45); z-index:5;
+  animation:badge-pop .6s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes badge-pop { from{transform:scale(0)rotate(-15deg);opacity:0} to{transform:scale(1)rotate(0);opacity:1} }
+
+/* BACK / LETTER */
+.card-back {
+  background:linear-gradient(160deg,#fef9ef 0%,#fdf6e0 100%);
+  border:2.5px solid var(--yellow);
+  box-shadow:0 24px 64px rgba(107,66,38,.16),0 4px 18px rgba(107,66,38,.1);
+  transform:rotateY(180deg);
+  display:flex; flex-direction:column; padding:30px 28px 18px; overflow:hidden;
+}
+.card-back::before {
+  content:''; position:absolute; inset:50px 28px 0;
+  background:repeating-linear-gradient(to bottom,transparent 0,transparent 30px,rgba(82,183,136,.12) 30px,rgba(82,183,136,.12) 31px);
+  pointer-events:none;
+}
+.card-back::after {
+  content:''; position:absolute; top:50px; bottom:10px; left:48px;
+  width:1.5px; background:rgba(255,100,100,.2); pointer-events:none;
+}
+.letter-salute { font-family:'Pacifico',cursive; font-size:21px; color:var(--g1); margin-bottom:2px; position:relative; z-index:1; }
+.letter-date   { font-size:13px; color:#aaa; margin-bottom:16px; position:relative; z-index:1; }
+.letter-body {
+  font-family:'Noto Serif SC',serif; font-size:14.5px; line-height:1.95;
+  color:#3d2e1e; flex:1; overflow-y:auto; position:relative; z-index:1; padding-left:4px;
+}
+.letter-body p { margin-bottom:10px; }
+.letter-sign { font-family:'Ma Shan Zheng',cursive; font-size:19px; color:var(--g2); text-align:right; margin-top:12px; position:relative; z-index:1; }
+.letter-footer { display:flex; align-items:center; justify-content:space-between; margin-top:10px; position:relative; z-index:1; }
+.mini-vegs { font-size:22px; letter-spacing:4px; }
+.back-btn {
+  background:none; border:1.8px solid var(--g4); color:var(--g3);
+  padding:6px 20px; border-radius:999px; font-family:'Ma Shan Zheng',cursive;
+  font-size:14px; cursor:pointer; transition:all .18s;
+}
+.back-btn:hover { background:var(--g4); color:#fff; }
+.cake-entry-btn {
+  align-self:center; margin-top:8px;
+  background:linear-gradient(135deg,#ffd166,#ffb347); color:var(--g1);
+  border:none; padding:9px 28px; border-radius:999px;
+  font-family:'Ma Shan Zheng',cursive; font-size:16px; cursor:pointer;
+  box-shadow:0 4px 14px rgba(255,179,71,.4); transition:transform .18s;
+  position:relative; z-index:1; animation:pulse-cake 2.8s ease-in-out infinite;
+}
+.cake-entry-btn:hover { transform:scale(1.06); }
+@keyframes pulse-cake {
+  0%,100%{box-shadow:0 4px 14px rgba(255,179,71,.4)}
+  50%{box-shadow:0 4px 26px rgba(255,179,71,.65),0 0 0 6px rgba(255,209,102,.18)}
+}
+
+/* ── CAKE SCREEN ── */
+#cake-screen {
+  position:fixed; inset:0;
+  background:radial-gradient(ellipse at 25% 15%,#e8f5e9 0%,#b9dfc8 45%,#81c9a1 100%);
+  display:flex; align-items:center; justify-content:center;
+  z-index:100; transform:translateX(110%);
+  transition:transform .75s cubic-bezier(.4,0,.2,1);
+}
+#cake-screen.visible { transform:translateX(0); }
+
+.cake-card {
+  width:min(430px,93vw); max-height:95vh; overflow:hidden;
+  background:linear-gradient(155deg,#fef9ef 0%,#f0faf4 60%,#e6f7ed 100%);
+  border:2.5px solid var(--g5); border-radius:28px;
+  box-shadow:0 24px 64px rgba(27,94,32,.22),0 4px 18px rgba(27,94,32,.12);
+  padding:18px 20px 16px; display:flex; flex-direction:column; align-items:center;
+}
+.cake-title { font-family:'Pacifico',cursive; font-size:clamp(18px,5vw,23px); color:var(--g1); margin-bottom:4px; text-align:center; }
+.cake-subtitle { font-size:13px; color:var(--g3); margin-bottom:8px; text-align:center; }
+.cake-svg-wrap { width:100%; max-width:310px; flex-shrink:0; }
+
+.step-dots { display:flex; gap:10px; margin:6px 0 10px; }
+.step-dot { width:10px; height:10px; border-radius:50%; background:#d1e8d8; border:2px solid #95d5b2; transition:all .4s cubic-bezier(.34,1.56,.64,1); }
+.step-dot.done { background:var(--g4); border-color:var(--g2); transform:scale(1.2); }
+
+.cake-btns { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:8px; }
+.step-btn {
+  padding:8px 14px; border-radius:999px; border:2px solid;
+  font-family:'Ma Shan Zheng',cursive; font-size:15px; cursor:pointer; transition:all .22s;
+}
+.step-btn.idle   { background:#f0faf4; border-color:var(--g5); color:#aaa; cursor:not-allowed; opacity:.5; }
+.step-btn.active { background:linear-gradient(135deg,var(--g4),var(--g2)); border-color:var(--g2); color:#fff; box-shadow:0 4px 14px rgba(45,138,94,.35); animation:btn-ready 2.2s ease-in-out infinite; }
+.step-btn.done-s { background:#e0f4ea; border-color:var(--g5); color:var(--g3); opacity:.7; cursor:default; }
+@keyframes btn-ready {
+  0%,100%{box-shadow:0 4px 14px rgba(45,138,94,.35)} 50%{box-shadow:0 4px 22px rgba(45,138,94,.6),0 0 0 5px rgba(82,183,136,.15)}
+}
+.blow-btn {
+  padding:10px 30px; border-radius:999px; border:none;
+  font-family:'Ma Shan Zheng',cursive; font-size:17px; cursor:pointer; transition:all .22s; margin-bottom:6px;
+}
+.blow-btn.idle  { background:#f0faf4; color:#aaa; opacity:.5; cursor:not-allowed; }
+.blow-btn.active { background:linear-gradient(135deg,#ff8f00,#e65100); color:#fff; box-shadow:0 4px 18px rgba(230,81,0,.4); animation:blow-pulse 1.4s ease-in-out infinite; }
+.blow-btn.blown { background:linear-gradient(135deg,#95d5b2,#52b788); color:#fff; cursor:default; }
+@keyframes blow-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+
+#blow-msg {
+  font-family:'Pacifico',cursive; font-size:18px; color:var(--g1);
+  text-align:center; opacity:0; transform:scale(.8); min-height:26px;
+  transition:all .5s cubic-bezier(.34,1.56,.64,1); margin-bottom:6px;
+}
+#blow-msg.show { opacity:1; transform:scale(1); }
+
+.cake-back-btn {
+  background:none; border:1.8px solid var(--g4); color:var(--g3);
+  padding:6px 20px; border-radius:999px; font-family:'Ma Shan Zheng',cursive;
+  font-size:14px; cursor:pointer; transition:all .18s;
+}
+.cake-back-btn:hover { background:var(--g4); color:#fff; }
+
+/* SVG animation states */
+.cake-hidden { opacity:0; pointer-events:none; }
+.drip { transform-origin:top center; }
+.drip.show { animation:drip-fall .55s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes drip-fall { from{transform:scaleY(0);opacity:0} to{transform:scaleY(1);opacity:1} }
+#cream-top.show { animation:cream-spread .5s ease-out both; }
+@keyframes cream-spread { from{transform:scaleX(0);opacity:0} to{transform:scaleX(1);opacity:1} }
+.fruit-item { transform-origin:center; }
+.fruit-item.show { animation:pop-in .42s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes pop-in { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+.candle-grp { transform-origin:bottom center; }
+.candle-grp.show { animation:candle-rise .6s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes candle-rise { from{transform:translateY(14px);opacity:0} to{transform:translateY(0);opacity:1} }
+.flame { transform-origin:bottom center; animation:flicker .7s ease-in-out infinite alternate; }
+@keyframes flicker { 0%{transform:scale(1)rotate(-3deg)} 100%{transform:scale(.88)rotate(3deg)} }
+.flame.blown-out { animation:extinguish .35s ease-out forwards; }
+@keyframes extinguish { to{transform:scale(0);opacity:0} }
+.smoke-wisp { opacity:0; }
+.smoke-wisp.show { animation:smoke-up 1.6s ease-out infinite; }
+@keyframes smoke-up { 0%{transform:translateY(0) scale(1);opacity:.55} 100%{transform:translateY(-28px) scale(1.6);opacity:0} }
+
+/* confetti */
+.confetti { position:fixed; pointer-events:none; border-radius:3px; animation:conf-fall ease-out forwards; z-index:999; }
+@keyframes conf-fall { 0%{transform:translateY(-20px) rotate(0deg);opacity:1} 100%{transform:translateY(110vh) rotate(800deg);opacity:0} }
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<!-- ════ CARD ════ -->
+<div class="card-scene">
+  <div class="card" id="card">
+
+    <!-- ── FRONT ── -->
+    <div class="card-face card-front">
+      <div class="stars" id="stars"></div>
+      <div class="age-badge">🌟 19岁！</div>
+      <p class="front-title">Happy Birthday!</p>
+      <p class="front-sub">🎂 甘源源，生日快乐 🎂</p>
+
+      <div class="veg-stage">
+        <!-- 白菜 -->
+        <svg class="veg veg-bc" viewBox="0 0 90 118" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="45" cy="72" rx="38" ry="40" fill="#c8e6c9"/>
+          <ellipse cx="45" cy="60" rx="30" ry="32" fill="#a5d6a7"/>
+          <ellipse cx="45" cy="50" rx="22" ry="24" fill="#c5e8b0"/>
+          <ellipse cx="45" cy="42" rx="14" ry="16" fill="#dcedc8"/>
+          <line x1="45" y1="90" x2="45" y2="44" stroke="#81c784" stroke-width="1.8" opacity=".55"/>
+          <line x1="45" y1="75" x2="22" y2="58" stroke="#81c784" stroke-width="1.3" opacity=".4"/>
+          <line x1="45" y1="75" x2="68" y2="58" stroke="#81c784" stroke-width="1.3" opacity=".4"/>
+          <circle cx="37" cy="37" r="3.2" fill="#2e4a2e"/>
+          <circle cx="53" cy="37" r="3.2" fill="#2e4a2e"/>
+          <circle cx="38.2" cy="36" r="1.1" fill="white"/>
+          <circle cx="54.2" cy="36" r="1.1" fill="white"/>
+          <path d="M38 45 Q45 51 52 45" fill="none" stroke="#2e4a2e" stroke-width="2" stroke-linecap="round"/>
+          <ellipse cx="32" cy="42" rx="4.5" ry="3" fill="#ffb3c6" opacity=".5"/>
+          <ellipse cx="58" cy="42" rx="4.5" ry="3" fill="#ffb3c6" opacity=".5"/>
+          <rect x="39" y="108" width="12" height="8" rx="3" fill="#a5d6a7"/>
+        </svg>
+        <!-- 上海青 -->
+        <svg class="veg veg-shq" viewBox="0 0 82 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M41 75 Q8 54 10 18 Q26 38 41 75" fill="#2e7d32"/>
+          <path d="M41 75 Q74 54 72 18 Q56 38 41 75" fill="#388e3c"/>
+          <path d="M41 70 Q14 52 18 12 Q32 35 41 70" fill="#43a047"/>
+          <path d="M41 70 Q68 52 64 12 Q50 35 41 70" fill="#4caf50"/>
+          <line x1="15" y1="22" x2="40" y2="68" stroke="#1b5e20" stroke-width="1.3" opacity=".45"/>
+          <line x1="67" y1="22" x2="42" y2="68" stroke="#1b5e20" stroke-width="1.3" opacity=".45"/>
+          <ellipse cx="41" cy="90" rx="27" ry="22" fill="#f5f5f0"/>
+          <ellipse cx="41" cy="92" rx="22" ry="17" fill="#ecf5ec"/>
+          <circle cx="33" cy="86" r="2.8" fill="#2e4a2e"/>
+          <circle cx="49" cy="86" r="2.8" fill="#2e4a2e"/>
+          <circle cx="34.2" cy="85" r="1" fill="white"/>
+          <circle cx="50.2" cy="85" r="1" fill="white"/>
+          <path d="M34 93 Q41 99 48 93" fill="none" stroke="#2e4a2e" stroke-width="1.8" stroke-linecap="round"/>
+          <ellipse cx="28" cy="91" rx="4" ry="2.8" fill="#ffb3c6" opacity=".45"/>
+          <ellipse cx="54" cy="91" rx="4" ry="2.8" fill="#ffb3c6" opacity=".45"/>
+          <rect x="37" y="108" width="8" height="9" rx="2" fill="#c8e6c9"/>
+        </svg>
+        <!-- 菠菜 -->
+        <svg class="veg veg-boc" viewBox="0 0 82 120" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="41" cy="58" rx="34" ry="44" fill="#2e7d32"/>
+          <path d="M41 96 Q12 72 18 36 Q30 62 41 96" fill="#388e3c"/>
+          <path d="M41 96 Q70 72 64 36 Q52 62 41 96" fill="#43a047"/>
+          <path d="M41 90 Q22 64 28 28 Q38 56 41 90" fill="#4caf50"/>
+          <path d="M41 90 Q60 64 54 28 Q44 56 41 90" fill="#66bb6a"/>
+          <ellipse cx="41" cy="55" rx="18" ry="26" fill="#81c784" opacity=".35"/>
+          <circle cx="34" cy="48" r="3.2" fill="#1b3a1b"/>
+          <circle cx="48" cy="48" r="3.2" fill="#1b3a1b"/>
+          <circle cx="35.2" cy="47" r="1.1" fill="white"/>
+          <circle cx="49.2" cy="47" r="1.1" fill="white"/>
+          <path d="M35 57 Q41 64 47 57" fill="none" stroke="#1b3a1b" stroke-width="2" stroke-linecap="round"/>
+          <ellipse cx="28" cy="54" rx="4.5" ry="3" fill="#ffb3c6" opacity=".45"/>
+          <ellipse cx="54" cy="54" rx="4.5" ry="3" fill="#ffb3c6" opacity=".45"/>
+          <rect x="37" y="110" width="8" height="8" rx="2" fill="#a5d6a7"/>
+        </svg>
+        <!-- 生菜 -->
+        <svg class="veg veg-slc" viewBox="0 0 90 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M45 88 Q6 76 8 44 Q18 26 28 22 Q20 52 45 88" fill="#7cb342"/>
+          <path d="M45 88 Q84 76 82 44 Q72 26 62 22 Q70 52 45 88" fill="#8bc34a"/>
+          <path d="M45 84 Q4 66 10 30 Q22 18 32 16 Q22 50 45 84" fill="#9ccc65"/>
+          <path d="M45 84 Q86 66 80 30 Q68 18 58 16 Q68 50 45 84" fill="#aed581"/>
+          <ellipse cx="45" cy="57" rx="26" ry="32" fill="#c5e08a"/>
+          <ellipse cx="45" cy="53" rx="20" ry="26" fill="#dcedc8"/>
+          <ellipse cx="45" cy="49" rx="13" ry="19" fill="#f1f8e9"/>
+          <circle cx="38" cy="44" r="3.2" fill="#33691e"/>
+          <circle cx="52" cy="44" r="3.2" fill="#33691e"/>
+          <circle cx="39.2" cy="43" r="1.1" fill="white"/>
+          <circle cx="53.2" cy="43" r="1.1" fill="white"/>
+          <path d="M38 53 Q45 60 52 53" fill="none" stroke="#33691e" stroke-width="2" stroke-linecap="round"/>
+          <ellipse cx="32" cy="50" rx="4.5" ry="3" fill="#ffb3c6" opacity=".45"/>
+          <ellipse cx="58" cy="50" rx="4.5" ry="3" fill="#ffb3c6" opacity=".45"/>
+          <ellipse cx="45" cy="112" rx="9" ry="5" fill="#a5d6a7"/>
+        </svg>
+        <div class="ground"><div class="ground-dots"><span></span><span></span><span></span><span></span><span></span></div></div>
+      </div>
+
+      <button class="open-btn" id="openBtn">💌 点击打开信件</button>
+    </div>
+
+    <!-- ── LETTER ── -->
+    <div class="card-face card-back">
+      <p class="letter-salute">亲爱的甘源源，</p>
+      <p class="letter-date">2026年4月5日</p>
+      <div class="letter-body">
+        <p>生日快乐！在成人世界1岁的小宝宝，希望能与你一起分享此刻相同的喜悦。</p>
+        <p>快问快答，如果宝宝用五彩缤纷的糖果来总结你的18岁会是哪几种？如果是我选的话，属于你的糖果味道肯定差异悬殊，从甜马上递进到酸，像坐过山车那样的18岁。</p>
+        <p>就算是梦一般也坚强地考完试、结束了昏天黑地的高中生活，暑假又是第一次在厂里一口气做了两个月，本来还没去之前开玩笑第一个星期就回家了，但八月底接你去小梅沙的时候我也不敢置信——你其实每天都远远比昨天的自己还要强大。</p>
+        <p>那么19岁呢，没有人知道是什么味道的糖果，或者哪天变成了片片形状各异的树叶，歌声参差的小鸟。</p>
+        <p>但是我希望你都可以去拥抱它们，就像拥抱那个会突然让你心头一沉的小女孩——你允许偶尔怀念过去，你也允许会脆弱、会掉眼泪、说不想活了、坚持不下去了、这个世界快快毁掉吧，我会和你一起抱着它们。</p>
+        <p>这是我的19岁告诉我的，我也想用最简单但是有力的话去祝福你，祝你有用不完的精力，和在生活的处处中感知不断的幸福。</p>
+        <p>我相信你，也会为你感到开心。</p>
+      </div>
+      <p class="letter-sign">——张朴</p>
+      <div class="letter-footer">
+        <div class="mini-vegs">🥬🥦🌿🥗</div>
+        <button class="back-btn" id="backBtn">← 看封面</button>
+      </div>
+      <button class="cake-entry-btn" id="cakeEntryBtn">🎂 还有惊喜！</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ CAKE SCREEN ════ -->
+<div id="cake-screen">
+  <div class="cake-card">
+    <p class="cake-title">🎂 来装饰你的蛋糕！</p>
+    <p class="cake-subtitle">按顺序来，最后一起吹蜡烛 🕯</p>
+
+    <div class="cake-svg-wrap">
+      <svg viewBox="0 0 320 272" xmlns="http://www.w3.org/2000/svg" width="100%" style="overflow:visible">
+
+        <!-- plate -->
+        <ellipse cx="160" cy="260" rx="132" ry="16" fill="#c8ebd8" stroke="#95d5b2" stroke-width="1.5"/>
+
+        <!-- bottom tier -->
+        <rect x="42" y="168" width="236" height="90" rx="16" fill="#fef9ef" stroke="#95d5b2" stroke-width="2.5"/>
+        <rect x="42" y="159" width="236" height="17" rx="8.5" fill="#74c69d"/>
+        <!-- dots on bottom tier -->
+        <circle cx="70"  cy="202" r="5.5" fill="#c8ebd8"/>
+        <circle cx="94"  cy="218" r="4"   fill="#c8ebd8"/>
+        <circle cx="250" cy="202" r="5.5" fill="#c8ebd8"/>
+        <circle cx="226" cy="218" r="4"   fill="#c8ebd8"/>
+        <circle cx="160" cy="225" r="5"   fill="#c8ebd8"/>
+        <!-- face on bottom tier -->
+        <circle cx="136" cy="202" r="6"   fill="#2e7d32"/>
+        <circle cx="184" cy="202" r="6"   fill="#2e7d32"/>
+        <circle cx="137.8" cy="200.2" r="2"  fill="white"/>
+        <circle cx="185.8" cy="200.2" r="2"  fill="white"/>
+        <path d="M138 215 Q160 228 182 215" fill="none" stroke="#2e7d32" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="120" cy="209" rx="8"  ry="5.5" fill="#ffb3c6" opacity=".5"/>
+        <ellipse cx="200" cy="209" rx="8"  ry="5.5" fill="#ffb3c6" opacity=".5"/>
+
+        <!-- top tier -->
+        <rect x="85" y="97" width="150" height="72" rx="12" fill="#f7fdf8" stroke="#74c69d" stroke-width="2"/>
+        <rect x="85" y="89" width="150" height="16" rx="8"  fill="#52b788"/>
+        <circle cx="100" cy="122" r="3.5" fill="#c8ebd8"/>
+        <circle cx="220" cy="122" r="3.5" fill="#c8ebd8"/>
+        <circle cx="100" cy="141" r="3"   fill="#95d5b2" opacity=".7"/>
+        <circle cx="220" cy="141" r="3"   fill="#95d5b2" opacity=".7"/>
+
+        <!-- top surface -->
+        <ellipse cx="160" cy="91" rx="77" ry="19" fill="#eef9f2" stroke="#52b788" stroke-width="1.5"/>
+
+        <!-- ── CREAM (step 1) ── -->
+        <g id="cream-g" class="cake-hidden">
+          <ellipse id="cream-top" cx="160" cy="89" rx="66" ry="13" fill="white" opacity=".92"/>
+          <path d="M110 86 Q128 78 146 86 Q164 94 182 86 Q200 78 210 86" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+          <!-- drips -->
+          <g class="drip" style="animation-delay:.04s"><rect x="93"  y="104" width="9" height="22" rx="4.5" fill="white"/><circle cx="97.5"  cy="128" r="5.5" fill="white"/></g>
+          <g class="drip" style="animation-delay:.11s"><rect x="115" y="104" width="9" height="29" rx="4.5" fill="white"/><circle cx="119.5" cy="135" r="5.5" fill="white"/></g>
+          <g class="drip" style="animation-delay:.19s"><rect x="138" y="104" width="9" height="20" rx="4.5" fill="white"/><circle cx="142.5" cy="126" r="5"   fill="white"/></g>
+          <g class="drip" style="animation-delay:.27s"><rect x="161" y="104" width="9" height="26" rx="4.5" fill="white"/><circle cx="165.5" cy="132" r="5.5" fill="white"/></g>
+          <g class="drip" style="animation-delay:.16s"><rect x="184" y="104" width="9" height="18" rx="4.5" fill="white"/><circle cx="188.5" cy="124" r="5"   fill="white"/></g>
+          <g class="drip" style="animation-delay:.07s"><rect x="205" y="104" width="9" height="24" rx="4.5" fill="white"/><circle cx="209.5" cy="130" r="5.5" fill="white"/></g>
+        </g>
+
+        <!-- ── FRUITS (step 2) ── -->
+        <g id="fruits-g" class="cake-hidden">
+          <!-- Mango slices (5, on top surface ring) -->
+          <g class="fruit-item" style="animation-delay:.00s"><ellipse cx="160" cy="72" rx="10" ry="6.5" fill="#ffd166" transform="rotate(-8,160,72)"/><ellipse cx="160" cy="71" rx="6" ry="4" fill="#ffeb80" opacity=".7" transform="rotate(-8,160,71)"/></g>
+          <g class="fruit-item" style="animation-delay:.08s"><ellipse cx="193" cy="79" rx="10" ry="6.5" fill="#ffd166" transform="rotate(34,193,79)"/><ellipse cx="193" cy="78" rx="6" ry="4" fill="#ffeb80" opacity=".7" transform="rotate(34,193,78)"/></g>
+          <g class="fruit-item" style="animation-delay:.16s"><ellipse cx="200" cy="97" rx="10" ry="6" fill="#ffd166" transform="rotate(74,200,97)"/><ellipse cx="200" cy="96" rx="6" ry="3.5" fill="#ffeb80" opacity=".7" transform="rotate(74,200,96)"/></g>
+          <g class="fruit-item" style="animation-delay:.06s"><ellipse cx="120" cy="97" rx="10" ry="6" fill="#ffd166" transform="rotate(-74,120,97)"/><ellipse cx="120" cy="96" rx="6" ry="3.5" fill="#ffeb80" opacity=".7" transform="rotate(-74,120,96)"/></g>
+          <g class="fruit-item" style="animation-delay:.12s"><ellipse cx="127" cy="79" rx="10" ry="6.5" fill="#ffd166" transform="rotate(-34,127,79)"/><ellipse cx="127" cy="78" rx="6" ry="4" fill="#ffeb80" opacity=".7" transform="rotate(-34,127,78)"/></g>
+          <!-- Blueberries (6, between mangoes) -->
+          <g class="fruit-item" style="animation-delay:.04s"><circle cx="178" cy="71" r="6.5" fill="#5c6bc0"/><circle cx="178" cy="71" r="6.5" fill="none" stroke="#3949ab" stroke-width="1"/><circle cx="175.5" cy="69" r="2" fill="rgba(255,255,255,.35)"/></g>
+          <g class="fruit-item" style="animation-delay:.14s"><circle cx="207" cy="87" r="6.5" fill="#5c6bc0"/><circle cx="207" cy="87" r="6.5" fill="none" stroke="#3949ab" stroke-width="1"/><circle cx="204.5" cy="85" r="2" fill="rgba(255,255,255,.35)"/></g>
+          <g class="fruit-item" style="animation-delay:.22s"><circle cx="193" cy="106" r="6" fill="#5c6bc0"/><circle cx="193" cy="106" r="6" fill="none" stroke="#3949ab" stroke-width="1"/><circle cx="190.5" cy="104" r="1.8" fill="rgba(255,255,255,.35)"/></g>
+          <g class="fruit-item" style="animation-delay:.10s"><circle cx="142" cy="71" r="6.5" fill="#5c6bc0"/><circle cx="142" cy="71" r="6.5" fill="none" stroke="#3949ab" stroke-width="1"/><circle cx="139.5" cy="69" r="2" fill="rgba(255,255,255,.35)"/></g>
+          <g class="fruit-item" style="animation-delay:.18s"><circle cx="113" cy="87" r="6.5" fill="#5c6bc0"/><circle cx="113" cy="87" r="6.5" fill="none" stroke="#3949ab" stroke-width="1"/><circle cx="110.5" cy="85" r="2" fill="rgba(255,255,255,.35)"/></g>
+          <g class="fruit-item" style="animation-delay:.26s"><circle cx="127" cy="106" r="6" fill="#5c6bc0"/><circle cx="127" cy="106" r="6" fill="none" stroke="#3949ab" stroke-width="1"/><circle cx="124.5" cy="104" r="1.8" fill="rgba(255,255,255,.35)"/></g>
+        </g>
+
+        <!-- ── CANDLES (step 3) ── -->
+        <g id="candles-g" class="cake-hidden">
+          <!-- Candle "1" -->
+          <g class="candle-grp" style="animation-delay:.0s">
+            <line x1="148" y1="91" x2="148" y2="46" stroke="#8d6e63" stroke-width="2.5"/>
+            <rect x="142" y="50" width="12" height="42" rx="5" fill="white" stroke="#f8bbd0" stroke-width="1.5"/>
+            <rect x="142" y="56" width="12" height="5" fill="#f48fb1"/>
+            <rect x="142" y="67" width="12" height="5" fill="#f48fb1"/>
+            <rect x="142" y="78" width="12" height="5" fill="#f48fb1"/>
+            <text x="148" y="72" font-family="serif" font-size="12" fill="#c62828" text-anchor="middle" dominant-baseline="middle" font-weight="bold">1</text>
+            <g class="flame" id="flame1">
+              <ellipse cx="148" cy="40" rx="5.5" ry="9"   fill="#ff8f00"/>
+              <ellipse cx="148" cy="42" rx="3.5" ry="6.5" fill="#ffd600"/>
+              <ellipse cx="148" cy="44" rx="2"   ry="3.5" fill="#fff9c4"/>
+            </g>
+          </g>
+          <!-- Candle "9" -->
+          <g class="candle-grp" style="animation-delay:.18s">
+            <line x1="172" y1="91" x2="172" y2="46" stroke="#8d6e63" stroke-width="2.5"/>
+            <rect x="166" y="50" width="12" height="42" rx="5" fill="white" stroke="#c8e6c9" stroke-width="1.5"/>
+            <rect x="166" y="56" width="12" height="5" fill="#81c784"/>
+            <rect x="166" y="67" width="12" height="5" fill="#81c784"/>
+            <rect x="166" y="78" width="12" height="5" fill="#81c784"/>
+            <text x="172" y="72" font-family="serif" font-size="12" fill="#2e7d32" text-anchor="middle" dominant-baseline="middle" font-weight="bold">9</text>
+            <g class="flame" id="flame2" style="animation-delay:.1s">
+              <ellipse cx="172" cy="40" rx="5.5" ry="9"   fill="#ff8f00"/>
+              <ellipse cx="172" cy="42" rx="3.5" ry="6.5" fill="#ffd600"/>
+              <ellipse cx="172" cy="44" rx="2"   ry="3.5" fill="#fff9c4"/>
+            </g>
+          </g>
+          <!-- smoke wisps (shown after blow) -->
+          <path class="smoke-wisp" id="smoke1" d="M148 38 Q144 30 148 22" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
+          <path class="smoke-wisp" id="smoke2" d="M172 38 Q176 30 172 22" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
+          <path class="smoke-wisp" id="smoke3" d="M160 36 Q156 26 160 18" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round"/>
+        </g>
+
+      </svg>
+    </div>
+
+    <div class="step-dots">
+      <div class="step-dot" id="dot0"></div>
+      <div class="step-dot" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
+    </div>
+
+    <div class="cake-btns">
+      <button class="step-btn active" id="btn-cream"  onclick="doStep(0)">🍦 淋奶油</button>
+      <button class="step-btn idle"   id="btn-fruits" onclick="doStep(1)">🥭🫐 放水果</button>
+      <button class="step-btn idle"   id="btn-candle" onclick="doStep(2)">🕯 插上蜡烛</button>
+    </div>
+
+    <button class="blow-btn idle" id="btn-blow" onclick="blowOut()">💨 吹灭！</button>
+    <div id="blow-msg">🎂 生日快乐，甘源源！✨</div>
+    <button class="cake-back-btn" id="cakeBackBtn">← 回到信件</button>
+  </div>
+</div>
+
+<script>
+// ── Card flip ──
+const card       = document.getElementById('card');
+const cakeScreen = document.getElementById('cake-screen');
+document.getElementById('openBtn').addEventListener('click', e => { e.stopPropagation(); card.classList.add('flipped'); launchConfetti(40); });
+document.getElementById('backBtn').addEventListener('click', e => { e.stopPropagation(); card.classList.remove('flipped'); });
+document.getElementById('cakeEntryBtn').addEventListener('click', e => { e.stopPropagation(); cakeScreen.classList.add('visible'); });
+document.getElementById('cakeBackBtn').addEventListener('click', () => cakeScreen.classList.remove('visible'));
+
+// ── Confetti ──
+function launchConfetti(n) {
+  const cols = ['#52b788','#95d5b2','#ffd166','#ffb3c6','#74c69d','#fff','#aed581'];
+  for (let i = 0; i < n; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti';
+    const s = 5 + Math.random() * 9;
+    el.style.cssText = `left:${Math.random()*100}vw;top:-12px;width:${s}px;height:${s*(.4+Math.random()*.8)}px;background:${cols[Math.floor(Math.random()*cols.length)]};border-radius:${Math.random()>.5?'50%':'3px'};animation-delay:${Math.random()*1.4}s;animation-duration:${2.2+Math.random()*2.2}s;`;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 5000);
+  }
+}
+
+// ── Floating particles ──
+const emojis = ['🍃','✨','🌿','💚','⭐','🌱','✦'];
+const pCont = document.getElementById('particles');
+for (let i = 0; i < 14; i++) {
+  const p = document.createElement('div'); p.className = 'particle';
+  p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+  p.style.cssText = `left:${Math.random()*100}vw;font-size:${10+Math.random()*14}px;animation-delay:${Math.random()*10}s;animation-duration:${9+Math.random()*9}s;`;
+  pCont.appendChild(p);
+}
+
+// ── Stars ──
+const starsEl = document.getElementById('stars');
+['✦','✧','⋆','✶','·'].forEach((c, ci) => {
+  for (let i = 0; i < 4; i++) {
+    const s = document.createElement('div'); s.className = 'star'; s.textContent = c;
+    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;font-size:${7+Math.random()*11}px;animation-delay:${Math.random()*3.5}s;animation-duration:${1.8+Math.random()*2.5}s;`;
+    starsEl.appendChild(s);
+  }
+});
+
+// ── Veg click ──
+document.querySelectorAll('.veg').forEach(v => {
+  v.addEventListener('click', () => {
+    const msgs = ['🥬 我最帅！','✨ 嗨！','💚 生日快乐！','😄 嘻嘻！','🌱 加油！'];
+    const b = document.createElement('div');
+    b.textContent = msgs[Math.floor(Math.random()*msgs.length)];
+    const r = v.getBoundingClientRect();
+    Object.assign(b.style, { position:'fixed', background:'white', border:'2px solid #52b788', borderRadius:'12px', padding:'4px 10px', fontSize:'13px', fontFamily:"'Ma Shan Zheng',cursive", color:'#2e7d32', pointerEvents:'none', zIndex:'999', opacity:'1', transition:'opacity .4s', boxShadow:'0 2px 8px rgba(0,0,0,.1)', left:r.left+r.width/2-30+'px', top:r.top-36+'px' });
+    document.body.appendChild(b);
+    v.style.transform = 'scale(1.3) rotate(12deg)';
+    setTimeout(() => { b.style.opacity = '0'; v.style.transform = ''; }, 900);
+    setTimeout(() => b.remove(), 1300);
+  });
+});
+
+// ── Cake step logic ──
+let cakeStep = 0;
+const stepGroups = ['cream-g', 'fruits-g', 'candles-g'];
+const stepBtns   = ['btn-cream', 'btn-fruits', 'btn-candle'];
+const stepLabels = [['🍦','淋好了 ✓'], ['🥭🫐','放好了 ✓'], ['🕯','插好了 ✓']];
+
+function doStep(n) {
+  if (n !== cakeStep) return;
+
+  const grp = document.getElementById(stepGroups[n]);
+  grp.classList.remove('cake-hidden');
+
+  if (n === 0) {
+    document.getElementById('cream-top').classList.add('show');
+    grp.querySelectorAll('.drip').forEach((d, i) => setTimeout(() => d.classList.add('show'), i * 65));
+  } else if (n === 1) {
+    grp.querySelectorAll('.fruit-item').forEach((f, i) => setTimeout(() => f.classList.add('show'), i * 55));
+  } else if (n === 2) {
+    grp.querySelectorAll('.candle-grp').forEach((c, i) => setTimeout(() => c.classList.add('show'), i * 200));
+    setTimeout(() => { document.getElementById('btn-blow').className = 'blow-btn active'; }, 750);
+  }
+
+  const btn = document.getElementById(stepBtns[n]);
+  btn.className = 'step-btn done-s';
+  btn.textContent = stepLabels[n][0] + ' ' + stepLabels[n][1];
+  btn.onclick = null;
+  document.getElementById('dot' + n).classList.add('done');
+
+  cakeStep++;
+  if (cakeStep < 3) document.getElementById(stepBtns[cakeStep]).className = 'step-btn active';
+}
+
+function blowOut() {
+  const bb = document.getElementById('btn-blow');
+  if (!bb.classList.contains('active')) return;
+
+  ['flame1','flame2'].forEach(id => {
+    const f = document.getElementById(id);
+    f.style.animation = 'flicker .12s ease-in-out infinite alternate';
+    setTimeout(() => { f.classList.add('blown-out'); f.style.animation = ''; }, 480);
+  });
+
+  ['smoke1','smoke2','smoke3'].forEach((id, i) => {
+    setTimeout(() => document.getElementById(id).classList.add('show'), 500 + i * 80);
+  });
+
+  setTimeout(() => {
+    bb.className = 'blow-btn blown';
+    bb.textContent = '💨 吹灭了！';
+    bb.onclick = null;
+    document.getElementById('dot3').classList.add('done');
+    document.getElementById('blow-msg').classList.add('show');
+    launchConfetti(110);
+  }, 820);
+}
+</script>
+</body>
+</html>
