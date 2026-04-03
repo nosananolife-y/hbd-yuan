@@ -30,14 +30,16 @@ body {
 }
 
 /* ── CARD ── */
-.card-scene { width:min(430px,93vw); perspective:1100px; z-index:1; }
+.card-scene { width:min(430px,93vw); -webkit-perspective:1100px; perspective:1100px; z-index:1; }
 .card {
   width:100%; height:clamp(580px,85vh,660px);
-  position:relative; transform-style:preserve-3d;
+  position:relative;
+  -webkit-transform-style:preserve-3d; transform-style:preserve-3d;
+  -webkit-transition:-webkit-transform 1s cubic-bezier(.45,.05,.2,1);
   transition:transform 1s cubic-bezier(.45,.05,.2,1);
 }
-.card.flipped { transform:rotateY(180deg); }
-.card-face { position:absolute; inset:0; backface-visibility:hidden; border-radius:28px; }
+.card.flipped { -webkit-transform:rotateY(180deg); transform:rotateY(180deg); }
+.card-face { position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden; border-radius:28px; }
 
 /* FRONT */
 .card-front {
@@ -109,7 +111,7 @@ body {
   background:linear-gradient(160deg,#fef9ef 0%,#fdf6e0 100%);
   border:2.5px solid var(--yellow);
   box-shadow:0 24px 64px rgba(107,66,38,.16),0 4px 18px rgba(107,66,38,.1);
-  transform:rotateY(180deg);
+  -webkit-transform:rotateY(180deg); transform:rotateY(180deg);
   display:flex; flex-direction:column; padding:30px 28px 18px; overflow:hidden;
 }
 .card-back::before {
