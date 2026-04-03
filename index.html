@@ -49,6 +49,7 @@ body {
   box-shadow:0 24px 64px rgba(27,94,32,.22),0 4px 18px rgba(27,94,32,.12),inset 0 1px 0 rgba(255,255,255,.8);
   display:flex; flex-direction:column; align-items:center;
   padding:28px 24px 22px; overflow:hidden;
+  -webkit-transform:rotateY(0deg); transform:rotateY(0deg);
 }
 .card-front::after {
   content:''; position:absolute; top:-3px; left:-3px; right:-3px; bottom:-3px; border-radius:30px;
@@ -493,8 +494,21 @@ body {
 const card       = document.getElementById('card');
 const cakeScreen = document.getElementById('cake-screen');
 const badge = document.querySelector('.age-badge');
-document.getElementById('openBtn').addEventListener('click', e => { e.stopPropagation(); card.classList.add('flipped'); badge.style.visibility='hidden'; launchConfetti(40); });
-document.getElementById('backBtn').addEventListener('click', e => { e.stopPropagation(); card.classList.remove('flipped'); badge.style.visibility='visible'; });
+const cardFront = document.querySelector('.card-front');
+
+document.getElementById('openBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  badge.style.visibility = 'hidden';
+  card.classList.add('flipped');
+  setTimeout(() => { cardFront.style.visibility = 'hidden'; }, 1000);
+  launchConfetti(40);
+});
+document.getElementById('backBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  cardFront.style.visibility = 'visible';
+  badge.style.visibility = 'visible';
+  card.classList.remove('flipped');
+});
 document.getElementById('cakeEntryBtn').addEventListener('click', e => { e.stopPropagation(); cakeScreen.classList.add('visible'); });
 document.getElementById('cakeBackBtn').addEventListener('click', () => cakeScreen.classList.remove('visible'));
 
